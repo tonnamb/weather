@@ -6,9 +6,15 @@ p {
   margin-bottom: 0;
 }
 
+a {
+  color: #DE1B1B;
+  text-decoration: none;
+}
+
 .show-location,
 .description-section, 
-.number-section {
+.number-section,
+.footer-section {
   text-align: center;
   padding: 1em 0;
 }
