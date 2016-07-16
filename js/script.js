@@ -7,6 +7,7 @@ $(document).ready(function () {
   (function () {
 
     var api_key = "573488375e184564967130158161607";
+    var degf = true;
 
     function getLocation(callback) {
       if (!navigator.geolocation) {
@@ -34,15 +35,25 @@ $(document).ready(function () {
       var img = new Image();
       img.src = weather.current.condition.icon;
       img.alt = "Weather status icon";
+      $("#description-icon").empty();
       $("#description-icon").append(img);
-      $("#temperature").html(weather.current.temp_f + " &deg;F");
-      $("#temperature-feelslike").html("Feels like: " + weather.current.feelslike_f + " &deg;F");
+      if (degf) {
+        $("#temperature").html(weather.current.temp_f + " &deg;F");
+        $("#temperature-feelslike").html("Feels like: " + weather.current.feelslike_f + " &deg;F");
+      } else {
+        $("#temperature").html(weather.current.temp_c + " &deg;C");
+        $("#temperature-feelslike").html("Feels like: " + weather.current.feelslike_c + " &deg;C");
+      }
       $("#humidity").text("Humidity: " + weather.current.humidity + " %");
     }
 
     getLocation(function (position) {
       getWeather(position, function (weather) {
         displayWeather(weather);
+        $("#convert").on("click", function() {
+          degf = !degf;
+          displayWeather(weather);
+        });
       });
     });
 
